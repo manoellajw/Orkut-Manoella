@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Manoella Porto - orkut</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #e9f0fa;
+    color: #333;
+  }
+  a { text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* HEADER */
+  .topbar {
+    background: linear-gradient(#c3d9f0, #a9c8ea);
+    border-bottom: 1px solid #7ea3d1;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 30px;
+  }
+  .logo {
+    font-family: 'Baloo 2', Arial, sans-serif;
+    color: #ec1c8d;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    line-height: 1;
+  }
+  .logo sup {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    color: #666;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: normal;
+    padding: 1px 5px;
+    border-radius: 8px;
+    margin-top: 6px;
+  }
+  .nav {
+    display: flex;
+    gap: 25px;
+    flex: 1;
+  }
+  .nav a {
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.15);
+  }
+  .search-box input[type="text"] {
+    width: 220px;
+    padding: 5px;
+    border: 1px solid #6f93bf;
+    border-radius: 2px;
+  }
+  .search-box button {
+    padding: 5px 12px;
+    border: 1px solid #999;
+    background: #f2f2f2;
+    border-radius: 2px;
+    cursor: default;
+  }
+  .sair { color: #234; font-size: 13px; }
+
+  /* LAYOUT */
+  .container {
+    max-width: 1200px;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 220px 1fr 320px;
+    gap: 18px;
+    padding: 0 20px;
+  }
+
+  .box {
+    background: #fff;
+    border: 1px solid #c9dcf0;
+    border-radius: 3px;
+  }
+  .box-header {
+    background: #dceafb;
+    padding: 8px 12px;
+    font-size: 15px;
+    color: #2255a4;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .box-header .vertodos {
+    font-size: 12px;
+    font-weight: normal;
+    color: #2255a4;
+  }
+
+  /* LEFT SIDEBAR */
+  .profile-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    border: 1px solid #ccc;
+    background: #ddd;
+  }
+  .avatar-square {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: bold;
+    color: #fff;
+  }
+  .side-name {
+    font-size: 20px;
+    margin: 8px 0 2px;
+  }
+  .status {
+    font-size: 13px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #4caf50; display: inline-block; }
+  .side-location { font-size: 13px; margin-bottom: 4px; }
+  .side-edit { font-size: 13px; color: #2255a4; }
+
+  .menu-list {
+    margin-top: 15px;
+    list-style: none;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #c9dcf0;
+    border-radius: 3px;
+  }
+  .menu-list li {
+    padding: 9px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid #eef3fa;
+    color: #2255a4;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .menu-list li:last-child { border-bottom: none; }
+  .menu-icon { font-size: 15px; }
+
+  /* CENTER COLUMN */
+  .profile-name {
+    font-size: 30px;
+    color: #2255a4;
+    font-weight: bold;
+    padding: 15px 15px 0;
+    margin: 0;
+  }
+  .tagline {
+    color: #888;
+    font-style: italic;
+    padding: 0 15px 12px;
+    margin: 0;
+  }
+  .info-box {
+    background: #eef5fd;
+    margin: 0 15px 15px;
+    padding: 12px 15px;
+    border-radius: 3px;
+    font-size: 13px;
+  }
+  .info-box .row { display: flex; padding: 3px 0; }
+  .info-box .label { width: 130px; color: #567; }
+  .info-box .value { color: #222; }
+  .verperfil {
+    text-align: right;
+    padding: 0 15px 15px;
+    font-size: 13px;
+  }
+  .verperfil a { color: #2255a4; }
+
+  .depoimentos-body {
+    padding: 30px 15px;
+    text-align: center;
+  }
+  .depoimentos-title {
+    font-size: 16px;
+    color: #567;
+    margin-bottom: 15px;
+  }
+  .add-depoimento-link {
+    display: inline-block;
+    color: #2255a4;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .depoimento-item {
+    text-align: left;
+    display: flex;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid #eef3fa;
+  }
+  .depoimento-item .avatar-round {
+    width: 55px;
+    height: 55px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+  }
+  .depoimento-content { flex: 1; }
+  .depoimento-content .dname { color: #2255a4; font-weight: bold; font-size: 13px; }
+  .depoimento-content .ddate { float: right; color: #999; font-size: 12px; }
+  .depoimento-content .dtext { font-size: 13px; margin-top: 4px; white-space: pre-wrap; }
+  .deixar-footer {
+    text-align: center;
+    padding: 15px 0 5px;
+  }
+
+  /* RIGHT SIDEBAR */
+  .grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 12px;
+  }
+  .grid3 .cell { text-align: center; font-size: 12px; }
+  .grid3 .avatar-round.small {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 3px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .grid3 .cell a { color: #2255a4; }
+  .comm-name { display: block; }
+  .comm-count { color: #777; font-size: 11px; }
+
+  /* FOOTER */
+  .footer {
+    max-width: 1200px;
+    margin: 30px auto 0;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-top: 1px solid #c9dcf0;
+    font-size: 12px;
+  }
+  .footer .logo { font-size: 20px; }
+  .footer .flinks { display: flex; gap: 15px; flex: 1; flex-wrap: wrap; }
+  .footer .flinks a { color: #2255a4; }
+  .footer .google { color: #4285F4; font-weight: bold; font-size: 16px; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #fff;
+    width: 380px;
+    max-width: 90%;
+    border-radius: 4px;
+    padding: 18px 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  }
+  .modal h3 {
+    margin: 0 0 12px;
+    color: #2255a4;
+    font-size: 17px;
+  }
+  .modal label {
+    display: block;
+    font-size: 12px;
+    color: #567;
+    margin-bottom: 4px;
+    margin-top: 10px;
+  }
+  .modal input[type="text"], .modal textarea {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #bcd;
+    border-radius: 2px;
+    font-family: inherit;
+    font-size: 13px;
+  }
+  .modal textarea { min-height: 80px; resize: vertical; }
+  .modal-actions {
+    margin-top: 15px;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .btn {
+    padding: 6px 16px;
+    border-radius: 3px;
+    border: 1px solid #999;
+    background: #f2f2f2;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .btn-primary {
+    background: #2f6fb3;
+    color: #fff;
+    border: 1px solid #2159a0;
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="logo">orkut<sup>beta</sup></div>
+    <div class="nav">
+      <a href="#">Início</a>
+      <a href="#">Perfil</a>
+      <a href="#">Página de recados</a>
+      <a href="#">Amigos</a>
+      <a href="#">Comunidades</a>
+    </div>
+    <div class="search-box">
+      <input type="text">
+      <button>buscar</button>
+    </div>
+    <div class="sair">Sair</div>
+  </div>
+
+  <div class="container">
+
+    <!-- LEFT SIDEBAR -->
+    <div>
+      <div class="box" style="padding:10px;">
+        <div class="profile-photo">
+          <img src="assets/manoella-perfil.jpeg" alt="Manoella Porto" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="side-name">Manoella Porto</div>
+        <div class="status"><span class="dot"></span> disponível</div>
+        <div class="side-location">Goiânia, GO</div>
+        <div class="side-edit">editar perfil</div>
+      </div>
+
+      <ul class="menu-list">
+        <li><span class="menu-icon">👤</span> perfil</li>
+        <li><span class="menu-icon">📝</span> página de recados</li>
+        <li><span class="menu-icon">🖼️</span> fotos</li>
+        <li><span class="menu-icon">🎬</span> vídeos</li>
+        <li><span class="menu-icon">💬</span> depoimentos</li>
+        <li><span class="menu-icon">📋</span> atualizações</li>
+        <li><span class="menu-icon">📅</span> eventos</li>
+      </ul>
+    </div>
+
+    <!-- CENTER COLUMN -->
+    <div>
+      <div class="box" style="margin-bottom:18px;">
+        <h1 class="profile-name">Manoella Porto</h1>
+        <div class="info-box">
+          <div class="row"><div class="label">idade:</div><div class="value">37</div></div>
+          <div class="row"><div class="label">aniversário:</div><div class="value">29 de setembro</div></div>
+          <div class="row"><div class="label">local:</div><div class="value">Goiânia</div></div>
+        </div>
+        <div class="verperfil">ver perfil inteiro »</div>
+      </div>
+
+      <div class="box">
+        <div class="box-header">Depoimentos</div>
+        <div class="depoimentos-body">
+          <div id="depoimentos-list"></div>
+          <div class="deixar-footer">
+            <span class="add-depoimento-link" onclick="abrirModal()">deixar um depoimento para Manoella Porto</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div>
+      <div class="box" style="margin-bottom:18px;">
+        <div class="box-header">amigos (456)</div>
+        <div class="grid3" id="amigos-grid"></div>
+      </div>
+
+      <div class="box">
+        <div class="box-header">comunidades (72)</div>
+        <div class="grid3" id="comunidades-grid"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="logo" style="font-size:20px;">orkut</div>
+    <div class="flinks">
+      <a href="#">Sobre o orkut</a>
+      <a href="#">Blog</a>
+      <a href="#">Desenvolvedores</a>
+      <a href="#">Central de segurança</a>
+      <a href="#">Privacidade</a>
+      <a href="#">Termos de uso</a>
+      <a href="#">Publicidade</a>
+      <a href="#">Ajuda</a>
+    </div>
+    <div class="google">Google</div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <h3>Deixar um depoimento para Manoella Porto</h3>
+      <label for="dep-nome">Seu nome</label>
+      <input type="text" id="dep-nome" placeholder="Digite seu nome">
+      <label for="dep-texto">Depoimento</label>
+      <textarea id="dep-texto" placeholder="Escreva seu depoimento..."></textarea>
+      <div class="modal-actions">
+        <button class="btn" onclick="fecharModal()">Cancelar</button>
+        <button class="btn btn-primary" onclick="salvarDepoimento()">Publicar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const cores = ['#c98fb0','#7ba3d0','#e0a35c','#6bbf8a','#c76b6b','#9b7bc9','#5cb3bf','#d18fc9'];
+    function corAleatoria(seed) {
+      let hash = 0;
+      for (let i = 0; i < seed.length; i++) hash = seed.charCodeAt(i) + ((hash << 5) - hash);
+      return cores[Math.abs(hash) % cores.length];
+    }
+
+    const amigos = ['Alessandra','Lolita','Rívia','Michelle','Isabela','Karen','Malena','Jessika','Carol'];
+    const fotosAmigos = { 'Alessandra': 'assets/alessandra-perfil.jpg', 'Lolita': 'assets/lolita-perfil.jpg', 'Rívia': 'assets/rivia-perfil.jpg' };
+    const grid = document.getElementById('amigos-grid');
+    amigos.forEach(nome => {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      const foto = fotosAmigos[nome];
+      const avatarHtml = foto
+        ? `<div class="avatar-round small" style="background-image:url('${foto}');background-size:cover;background-position:center;"></div>`
+        : `<div class="avatar-round small" style="background:${corAleatoria(nome)}">${nome[0]}</div>`;
+      cell.innerHTML = `${avatarHtml}<a href="#">${nome}</a>`;
+      grid.appendChild(cell);
+    });
+
+    const comunidades = [
+      ['Eu Odeio Acordar Cedo','6.106.962'],
+      ['Sou legal, ñ tô te dando mole','1.518.382'],
+      ['SUA INVEJA FAZ A MINHA FAMA','2.466.741'],
+      ['Eu abro a geladeira pra pensar','1.413.789'],
+      ['Colégio Einstein Goiânia','12.345'],
+      ['Avril Lavigne','543.210'],
+      ['Charlie Brown Jr','432.109'],
+      ['Britney Spears','321.098'],
+      ['Queria sorvete, mas era feijão','213.286']
+    ];
+    const cgrid = document.getElementById('comunidades-grid');
+    comunidades.forEach(([nome, contagem]) => {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.innerHTML = `<div class="avatar-round small" style="background:${corAleatoria(nome)}">${nome[0]}</div><a href="#" class="comm-name">${nome}</a><span class="comm-count">(${contagem})</span>`;
+      cgrid.appendChild(cell);
+    });
+
+    // Depoimentos guardados só em memória (sem localStorage)
+    let depoimentos = [];
+
+    function renderDepoimentos() {
+      const list = document.getElementById('depoimentos-list');
+      if (depoimentos.length === 0) {
+        list.innerHTML = '<div class="depoimentos-title">Nenhum depoimento ainda.</div>';
+        return;
+      }
+      list.innerHTML = '';
+      depoimentos.slice().reverse().forEach(dep => {
+        const item = document.createElement('div');
+        item.className = 'depoimento-item';
+        item.innerHTML = `
+          <div class="avatar-round" style="background:${corAleatoria(dep.nome)}">${dep.nome[0].toUpperCase()}</div>
+          <div class="depoimento-content">
+            <span class="ddate">${dep.data}</span>
+            <div class="dname">${dep.nome}</div>
+            <div class="dtext">${dep.texto}</div>
+          </div>`;
+        list.appendChild(item);
+      });
+    }
+
+    function abrirModal() {
+      document.getElementById('modal-overlay').classList.add('open');
+    }
+    function fecharModal() {
+      document.getElementById('modal-overlay').classList.remove('open');
+      document.getElementById('dep-nome').value = '';
+      document.getElementById('dep-texto').value = '';
+    }
+    function salvarDepoimento() {
+      const nome = document.getElementById('dep-nome').value.trim();
+      const texto = document.getElementById('dep-texto').value.trim();
+      if (!nome || !texto) {
+        alert('Preencha seu nome e o depoimento.');
+        return;
+      }
+      const hoje = new Date();
+      const data = String(hoje.getDate()).padStart(2,'0') + '/' + String(hoje.getMonth()+1).padStart(2,'0') + '/' + hoje.getFullYear();
+      depoimentos.push({ nome, texto, data });
+      renderDepoimentos();
+      fecharModal();
+    }
+
+    renderDepoimentos();
+  </script>
+
+</body>
+</html>
+<script async src="/.netlify/scripts/hud?variant=owner-private" data-nf-variant="owner-private" data-netlify-site-id="ce62498f-ee50-456a-a4e2-19a0f9cb3be3" data-app-host="app.netlify.com"></script>
